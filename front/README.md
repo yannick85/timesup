@@ -1,4 +1,4 @@
-# timesup
+# timesup front
 
 ## Project setup
 ```
