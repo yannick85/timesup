@@ -1,0 +1,16 @@
+@import "setup/_mixins.scss";
+@import "setup/_variables.scss";
+
+body {
+  background: $bodyback-color;
+  margin: 0;
+}
+
+#app {
+  height: 100vh;
+}
+
+#header {
+  height: 4rem;
+  background: $headerback-color;
+}
