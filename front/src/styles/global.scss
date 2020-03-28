@@ -4,13 +4,12 @@
 body {
   background: $bodyback-color;
   margin: 0;
+  color: $text-color;
+  font-size: 16px;
 }
 
 #app {
   height: 100vh;
 }
 
-#header {
-  height: 4rem;
-  background: $headerback-color;
-}
+@import "layout.scss";

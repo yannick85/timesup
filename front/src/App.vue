@@ -7,7 +7,9 @@
       </div>
     </div>
     <div id="content">
-      <router-view/>
+      <div id="content-inside">
+        <router-view/>
+      </div>
     </div>
     <div id="footer">
     </div>
