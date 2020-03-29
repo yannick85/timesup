@@ -1,4 +1,8 @@
+/* Global Scss with Foundation6 CSS */
 import './styles/global.scss'
+
+import 'script-loader!jquery/dist/jquery.min'
+import 'script-loader!foundation-sites/dist/js/foundation.min'
 
 import Vue from 'vue'
 import socketio from 'socket.io-client';

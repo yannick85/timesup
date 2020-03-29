@@ -1,11 +1,18 @@
+@import 'setup/foundationsettings';
+@import '../../node_modules/foundation-sites/scss/foundation.scss';
+@include foundation-everything;
+
 @import "setup/_mixins.scss";
 @import "setup/_variables.scss";
+
+@import "./responsive.scss";
 
 body {
   background: $bodyback-color;
   margin: 0;
   color: $text-color;
   font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #app {

@@ -45,3 +45,14 @@ h1, h2 {
   top: 0;
   width: 100%;
 }
+
+form {
+  .formElement {
+    margin-bottom: 0.75rem;
+    label {
+      font-size: rem_calc(18);
+      font-weight: bold;
+      display: block;
+    }
+  }
+}
