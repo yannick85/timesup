@@ -51,8 +51,8 @@ export default {
   },
   sockets: {
     welcomeInGame: function (data) {
-        console.log('game was created')
-        console.log(data)
+      this.$store.commit('setGame', data)
+      this.$router.push({name: 'game'})
     }
   }
         

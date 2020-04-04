@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
 import JoinGame from '@/views/JoinGame.vue'
 import CreateGame from '@/views/CreateGame.vue'
+import Game from '@/views/Game.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     name: 'CreateGame',
     component: CreateGame
   },
+  {
+    path: '/game',
+    name: 'game',
+    component: Game
+  }
 ]
 
 const router = new VueRouter({

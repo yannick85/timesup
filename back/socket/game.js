@@ -13,6 +13,7 @@ module.exports = function (gameDataIn, creatorSocket) {
     name: gameDataIn.name,
     gameUuid: gameDataIn.gameUuid,
     creator: gameDataIn.creatorPseudo,
+    password: gameDataIn.password,
     sockets: [],
     players: [],
     state: states.lobby, 
@@ -26,6 +27,14 @@ module.exports = function (gameDataIn, creatorSocket) {
         playerUuid: uuidPlayer,
         playerPseudo: playerPseudo
       })
+    },
+    getLightVersion: function () {
+      return {
+        gameUuid: this.gameUuid,
+        name: this.name,
+        creator: this.creator,
+        needPassword: (this.password && this.password.length > 0)
+      }
     }
   }
   gameObj.addPlayer(gameDataIn.creatorPseudo, creatorSocket)
