@@ -28,7 +28,11 @@ export default {
     customEmit: function (data) {
       console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
       console.log(data)
+    },
+    welcomeInGame: function (data) {
+      this.$store.commit('setGame', data)
+      this.$router.push({name: 'game'})
     }
-  },
+  }
 }
 </script>

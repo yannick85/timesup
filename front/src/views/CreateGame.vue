@@ -48,14 +48,7 @@ export default {
         alert('Formulaire incomplet')
       }
     }
-  },
-  sockets: {
-    welcomeInGame: function (data) {
-      this.$store.commit('setGame', data)
-      this.$router.push({name: 'game'})
-    }
   }
-        
 }
 </script>
 

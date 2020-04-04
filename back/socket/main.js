@@ -33,11 +33,11 @@ module.exports = function (httpServer) {
     })
 
     /**
-     * in format : {gameUuid, pseudo}
+     * in format : {gameUuid, pseudo, password}
     */
     socket.on('joinGame', function (data) {
       for (let i in allGames) {
-        if (allGames[i].gameUuid == gameUuid) {
+        if (allGames[i].gameUuid == data.gameUuid) {
           allGames[i].addPlayer(data.pseudo, socket)
         }
       }

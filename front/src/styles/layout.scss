@@ -27,7 +27,7 @@ h1, h2 {
   width: calc(100% - 4rem);
   border: 0.125rem solid $themelight-color;
   background-color: $theme-color;
-  color: $textlight-color;
+  color: $light-color;
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
@@ -35,6 +35,10 @@ h1, h2 {
 }
 .button:hover, .button:focus {
   border-color: $themefocus-color;
+}
+.buttonSecondary {
+  background-color: $light-color;
+  color: $theme-color;
 }
 
 #header {
@@ -46,13 +50,11 @@ h1, h2 {
   width: 100%;
 }
 
-form {
-  .formElement {
-    margin-bottom: 0.75rem;
-    label {
-      font-size: rem_calc(18);
-      font-weight: bold;
-      display: block;
-    }
+.formElement {
+  margin-bottom: 0.75rem;
+  label {
+    font-size: rem_calc(18);
+    font-weight: bold;
+    display: block;
   }
 }
