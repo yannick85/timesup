@@ -27,7 +27,7 @@ module.exports = function (httpServer) {
     socket.on('sendGameList', function () {
       let gameList = []
       for (let i in allGames) {
-        gameList.push(allGames[i].getLightVersion())
+        gameList.push(allGames[i].getLightGame())
       }
       socket.emit('gameList', gameList)
     })
@@ -42,6 +42,17 @@ module.exports = function (httpServer) {
         }
       }
     })
+
+    /**
+     * in format : {gameUuid, playerUuid}
+    */
+   socket.on('syncGame', function (data) {
+    for (let i in allGames) {
+      if (allGames[i].gameUuid == data.gameUuid) {
+        allGames[i].syncGameForPlayer(data.playerUuid)
+      }
+    }
+  })
   })
 
 }
