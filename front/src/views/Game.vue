@@ -15,6 +15,7 @@
         </ul>
         {{ game }}
         <Lobby v-if="game.state == 'LOBBY'" :game="game" @sendData="sendData"></Lobby>
+        <Prep v-if="game.state == 'PREP'" :game="game" @sendData="sendData"></Prep>
       </div>
     </div>
   </div>
@@ -22,6 +23,7 @@
 
 <script>
 import Lobby from '@/components/timesup/Lobby.vue'
+import Prep from '@/components/timesup/Prep.vue'
 
 export default {
   name: 'Game',
@@ -42,7 +44,7 @@ export default {
         playerUuid: this.$store.getters['playerUuid']
       })
     },
-    sendData: function(action, actionData) {
+    sendData: function(action, actionData = null) {
       this.$socket.emit('sendDataToGame', {
         gameUuid: this.$store.getters['gameUuid'],
         playerUuid: this.$store.getters['playerUuid'],
@@ -61,7 +63,7 @@ export default {
     }
   },
   components: {
-    Lobby
+    Lobby, Prep
   }
 }
 </script>
