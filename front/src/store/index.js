@@ -13,6 +13,7 @@ export default new Vuex.Store({
   state: {
     gameUuid: null,
     gameName: null,
+    playerId: null,
     playerUuid: null,
     playerPseudo: null
   },
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     setGame (state, gameData) {
       state.gameUuid = gameData.gameUuid
       state.gameName = gameData.name
-      state.playerUuid= gameData.playerUuid,
+      state.playerId= gameData.playerId,
+      state.playerUuid= gameData.playerUuid
       state.playerPseudo= gameData.playerPseudo
     }
   },
@@ -35,6 +37,9 @@ export default new Vuex.Store({
     },
     gameName: state => {
       return state.gameName
+    },
+    playerId: state => {
+      return state.playerId
     },
     playerUuid: state => {
       return state.playerUuid

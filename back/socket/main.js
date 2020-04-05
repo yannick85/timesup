@@ -53,6 +53,19 @@ module.exports = function (httpServer) {
       }
     }
   })
+
+  /**
+     * in format : {gameUuid, playerUuid, playerData}
+    */
+   socket.on('sendDataToGame', function (data) {
+    for (let i in allGames) {
+      if (allGames[i].gameUuid == data.gameUuid) {
+        allGames[i].sendDataToGame(data)
+      }
+    }
+  })
+
+
   })
 
 }

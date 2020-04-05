@@ -6,20 +6,22 @@
       <div v-if="game === null">Chargement ...</div>
       <div v-if="game">
         Joueurs :
-        <ul class="playerList" v-if="game.playerList">
-          <li v-for="player in game.playerList" 
+        <ul class="playerList" v-if="game.players">
+          <li v-for="player in game.players" 
             :index="player.pseudo"
             :key="player.pseudo"
             class="player"
             >{{ player.pseudo }}</li>
         </ul>
         {{ game }}
+        <Lobby v-if="game.state == 'LOBBY'" :game="game" @sendData="sendData"></Lobby>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Lobby from '@/components/timesup/Lobby.vue'
 
 export default {
   name: 'Game',
@@ -39,6 +41,16 @@ export default {
         gameUuid: this.$store.getters['gameUuid'],
         playerUuid: this.$store.getters['playerUuid']
       })
+    },
+    sendData: function(action, actionData) {
+      this.$socket.emit('sendDataToGame', {
+        gameUuid: this.$store.getters['gameUuid'],
+        playerUuid: this.$store.getters['playerUuid'],
+        playerData: {
+          action: action,
+          actionData: actionData
+        }
+      })
     }
   },
   sockets: {
@@ -49,6 +61,7 @@ export default {
     }
   },
   components: {
+    Lobby
   }
 }
 </script>
