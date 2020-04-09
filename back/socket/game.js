@@ -65,25 +65,24 @@ module.exports = function (gameDataIn, creatorSocket) {
     syncGameForPlayer: function (pUuid) {
       let player = this.getPlayerWithUuid(pUuid)
       if (player) {
-        player.socket.emit('syncGame', this.getActualGame())
+        player.socket.emit('syncGame', this.getActualGame(player))
       }
     },
     // Resynchronise tous les joueurs
     syncAll: function () {
-      let actGame = this.getActualGame()
       for (let i in this.players) {
-        this.players[i].socket.emit('syncGame', actGame)
+        this.players[i].socket.emit('syncGame', this.getActualGame(this.players[i]))
       }
     },
     // Génère le jeu complet pour utilisation front
-    getActualGame: function () {
+    getActualGame: function (player) {
       return {
         gameUuid: this.gameUuid,
         name: this.name,
         players: this.getLightPlayerList(),
         teams: this.teams,
         state: this.state,
-        stateData: this.getStateData(),
+        stateData: this.getStateData(player),
       }
     },
     // Version soft de la liste des joueurs pour utilisation par tous
@@ -119,7 +118,10 @@ module.exports = function (gameDataIn, creatorSocket) {
 
     //specific state Game
     allWords: [],
-
+    stateWords: null,//words tu use in state
+    stateWordAsked: null,//word currently asked
+    turnTeamIncr: null,//Indicate which team turn it is
+    turnTeamPlayerIncr: null,//Indicate which teamplayer turn it is => [teamId => [playerIncr], ...]
 
     //prepare les données pour un nouveau state
     initGameState : function () {
@@ -171,13 +173,24 @@ module.exports = function (gameDataIn, creatorSocket) {
           for (let i in this.wordsByPlayer) {
             this.allWords = [...this.allWords, ...this.wordsByPlayer[i]]
           }
+
+          this.stateWords = [...this.allWords] //state copy
+          this.turnTeamIncr = 0
+          this.turnTeamPlayerIncr = []
+          for(let i in this.teams) {
+            this.turnTeamPlayerIncr[i] = 0
+          }
+          let randomWordId = Math.floor(Math.random() * this.stateWords.length)
+          this.stateWordAsked = this.stateWords[randomWordId]
+          this.stateWords.splice(randomWordId, 1)
+
           console.log(this.allWords)
           
           break;
       }
     },
     //formate les données pour les utilisateurs selon le state
-    getStateData : function () {
+    getStateData : function (player) {
       let stateData = {}
       switch (this.state) {
         case GAME_STATES.LOBBY :
@@ -189,6 +202,11 @@ module.exports = function (gameDataIn, creatorSocket) {
           stateData.playersReady = this.playersReady
           break;
         case GAME_STATES.GAME1 :
+          stateData.turnTeamId = this.teams[this.turnTeamIncr].id
+          stateData.turnPlayerId = this.teams[this.turnTeamIncr].players[this.turnTeamPlayerIncr[this.turnTeamIncr]].id
+          if (stateData.turnPlayerId == player.id) {//= current player
+            stateData.wordAsked = this.stateWordAsked
+          }
           break;
       }
       return stateData
