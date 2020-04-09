@@ -99,8 +99,15 @@ module.exports = function (gameDataIn, creatorSocket) {
     },
 
     //donnes timesup
-    teams: {},//{ id: 'code', name: 'label', score: 0, players : [] }
+    teams: [],//{ id: 'code', name: 'label', score: 0, players : [] }
     teamsNumber: 0,
+    getTeamById : function (teamId) {
+      for (let i in this.teams) {
+        if (this.teams[i].id == teamId) {
+          return this.teams[i]
+        }
+      }
+    },
 
     //specific state LOBBY
     playerTeamChosen: null,//[playerId : idTeam]
@@ -113,42 +120,45 @@ module.exports = function (gameDataIn, creatorSocket) {
     //specific state Game
     allWords: [],
 
+
     //prepare les données pour un nouveau state
     initGameState : function () {
       switch (this.state) {
         case GAME_STATES.LOBBY :
-          this.teams['red'] = { id: 'red', name: 'Rouge', score: 0, players : [] }
-          this.teams['blue'] = { id: 'blue', name: 'Bleu', score: 0, players : [] }
-          this.teamsNumber = 2
+          this.teams.push({ id: 'red', name: 'Rouge', score: 0, players : [] })
+          this.teams.push({ id: 'blue', name: 'Bleu', score: 0, players : [] })
           this.playerTeamChosen = []
           this.playersReady = []
           break
         case GAME_STATES.PREP :
           //set player in teams
-          for (let idPlayer in this.playerTeamChosen) {
-            if (this.teams[this.playerTeamChosen[idPlayer]]) {
-              this.teams[this.playerTeamChosen[idPlayer]].players.push({
-                id: this.players[idPlayer].id,
-                pseudo: this.players[idPlayer].pseudo
-              })
+          for (let i in this.teams) {
+            for (let idPlayer in this.playerTeamChosen) {
+              if (this.teams[i].id == this.playerTeamChosen[idPlayer]) {
+                this.teams[i].players.push({
+                  id: this.players[idPlayer].id,
+                  pseudo: this.players[idPlayer].pseudo
+                })
+              }
             }
           }
 
           this.playersReady = []
           //calculate number of words needed by players
           this.numberOfWordsNeededByPlayer = []
-          let wordsByTeam = Math.ceil(this.numberOfWords / this.teamsNumber)
-          for (let teamId in this.teams) {
+          let wordsByTeam = Math.ceil(this.numberOfWords / this.teams.length)
+          for (let i in this.teams) {
+            let curTeam = this.teams[i]
             let wordGiven = 0
-            let numToGiveByPlayer = Math.floor(wordsByTeam / this.teams[teamId].players.length)
-            for (let i in this.teams[teamId].players) {
-              this.numberOfWordsNeededByPlayer[this.teams[teamId].players[i].id] = numToGiveByPlayer
+            let numToGiveByPlayer = Math.floor(wordsByTeam / curTeam.players.length)
+            for (let iPlayer in curTeam.players) {
+              this.numberOfWordsNeededByPlayer[curTeam.players[iPlayer].id] = numToGiveByPlayer
               wordGiven += numToGiveByPlayer
             }
             //second tour si nombre incomplet
-            for (let i in this.teams[teamId].players) {
+            for (let iPlayer in curTeam.players) {
               if (wordGiven < wordsByTeam) {
-                this.numberOfWordsNeededByPlayer[this.teams[teamId].players[i].id]++
+                this.numberOfWordsNeededByPlayer[curTeam.players[iPlayer].id]++
                 wordGiven++
               }
             }
@@ -162,6 +172,7 @@ module.exports = function (gameDataIn, creatorSocket) {
             this.allWords = [...this.allWords, ...this.wordsByPlayer[i]]
           }
           console.log(this.allWords)
+          
           break;
       }
     },
@@ -190,7 +201,7 @@ module.exports = function (gameDataIn, creatorSocket) {
         switch (this.state) {
           case GAME_STATES.LOBBY :
             if (data.playerData.action == 'chooseTeam') {
-              if (this.teams.hasOwnProperty(data.playerData.actionData)) {
+              if (this.getTeamById(data.playerData.actionData) != null) {
                 this.playerTeamChosen[player.id] = data.playerData.actionData
                 this.syncAll()
               }
@@ -208,8 +219,8 @@ module.exports = function (gameDataIn, creatorSocket) {
               }
               if (allTeamAtLeastOnePlayer && this.playersReady.length === this.players.length) {
                 let allReady = true
-                for (let i in this.playersReady) {
-                  if (this.playersReady[i] !== true) {
+                for (let i in this.players) {
+                  if (this.playersReady[this.players[i].id] !== true) {
                     allReady = false
                   }
                 }
@@ -232,8 +243,8 @@ module.exports = function (gameDataIn, creatorSocket) {
               }
               if (this.playersReady.length === this.players.length) {//check if all ready
                 let allReady = true
-                for (let i in this.playersReady) {
-                  if (this.playersReady[i]  !== true) {
+                for (let i in this.players) {
+                  if (this.playersReady[this.players[i].id] !== true) {
                     allReady = false
                   }
                 }
