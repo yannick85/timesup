@@ -16,7 +16,9 @@
         {{ game }}
         <Lobby v-if="game.state == 'LOBBY'" :game="game" @sendData="sendData"></Lobby>
         <Prep v-if="game.state == 'PREP'" :game="game" @sendData="sendData"></Prep>
+        <Question v-if="['GAME1', 'GAME2', 'GAME3'].includes(game.state)" :game="game" @sendData="sendData"></Question>
       </div>
+      <div @click="syncGame">Resync</div>
     </div>
   </div>
 </template>
@@ -24,6 +26,7 @@
 <script>
 import Lobby from '@/components/timesup/Lobby.vue'
 import Prep from '@/components/timesup/Prep.vue'
+import Question from '@/components/timesup/Question.vue'
 
 export default {
   name: 'Game',
@@ -63,7 +66,7 @@ export default {
     }
   },
   components: {
-    Lobby, Prep
+    Lobby, Prep, Question
   }
 }
 </script>

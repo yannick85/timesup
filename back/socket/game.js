@@ -6,6 +6,7 @@ const GAME_STATES = {
   GAME1: 'GAME1',
   GAME2: 'GAME2',
   GAME3: 'GAME3',
+  END: 'END'
 }
 
 module.exports = function (gameDataIn, creatorSocket) {
@@ -170,8 +171,13 @@ module.exports = function (gameDataIn, creatorSocket) {
 
           break;
         case GAME_STATES.GAME1 :
-          for (let i in this.wordsByPlayer) {
-            this.allWords = [...this.allWords, ...this.wordsByPlayer[i]]
+        case GAME_STATES.GAME2 :
+        case GAME_STATES.GAME3 :
+
+          if (this.state == GAME_STATES.GAME1) {
+            for (let i in this.wordsByPlayer) {
+              this.allWords = [...this.allWords, ...this.wordsByPlayer[i]]
+            }
           }
 
           this.stateWords = [...this.allWords] //state copy
@@ -183,8 +189,6 @@ module.exports = function (gameDataIn, creatorSocket) {
           let randomWordId = Math.floor(Math.random() * this.stateWords.length)
           this.stateWordAsked = this.stateWords[randomWordId]
           this.stateWords.splice(randomWordId, 1)
-
-          console.log(this.allWords)
           
           break;
       }
@@ -202,7 +206,11 @@ module.exports = function (gameDataIn, creatorSocket) {
           stateData.playersReady = this.playersReady
           break;
         case GAME_STATES.GAME1 :
-          stateData.turnTeamId = this.teams[this.turnTeamIncr].id
+        case GAME_STATES.GAME2 :
+        case GAME_STATES.GAME3 :
+          stateData.turnTotal = this.allWords.length
+          stateData.turnActual = (this.allWords.length - this.stateWords.length)
+          stateData.turnTeamIncr = this.turnTeamIncr
           stateData.turnPlayerId = this.teams[this.turnTeamIncr].players[this.turnTeamPlayerIncr[this.turnTeamIncr]].id
           if (stateData.turnPlayerId == player.id) {//= current player
             stateData.wordAsked = this.stateWordAsked
@@ -279,6 +287,48 @@ module.exports = function (gameDataIn, creatorSocket) {
             }
             break;
           case GAME_STATES.GAME1 :
+          case GAME_STATES.GAME2 :
+          case GAME_STATES.GAME3 :
+            if (data.playerData.action == 'gameResponse') {
+              let turnPlayerId = this.teams[this.turnTeamIncr].players[this.turnTeamPlayerIncr[this.turnTeamIncr]].id
+              if (player.id === turnPlayerId) {//player is the good one, his turn to play
+                if (data.playerData.actionData === true) {
+                  this.teams[this.turnTeamIncr].score++
+                }
+
+                //Next player
+                if (this.stateWords.length > 0) {//others words to go
+                  this.turnTeamIncr++
+                  if (this.turnTeamIncr >= this.teams.length) {
+                    this.turnTeamIncr = 0
+                  }
+                  this.turnTeamPlayerIncr[this.turnTeamIncr]++
+                  if (this.turnTeamPlayerIncr[this.turnTeamIncr] >= this.teams[this.turnTeamIncr].players.length) {
+                    this.turnTeamPlayerIncr[this.turnTeamIncr] = 0
+                  }
+                  let randomWordId = Math.floor(Math.random() * this.stateWords.length)
+                  this.stateWordAsked = this.stateWords[randomWordId]
+                  this.stateWords.splice(randomWordId, 1)
+                } else {//state ended
+                  switch (this.state) {
+                    case GAME_STATES.GAME1 :
+                      this.state = GAME_STATES.GAME2
+                      this.initGameState()
+                      break;
+                    case GAME_STATES.GAME2 :
+                      this.state = GAME_STATES.GAME3
+                      this.initGameState()
+                      break;
+                    case GAME_STATES.GAME3 :
+                      this.state = GAME_STATES.END
+                      this.initGameState()
+                      break;
+                  }
+                }
+
+                this.syncAll()
+              }
+            }
             break;
         }
         data.playerData
