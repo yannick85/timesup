@@ -1,0 +1,6 @@
+{
+  "name": "TimesUp",
+  "description": "Online TimesUp Game",
+  "repository": "https://github.com/yannick85/timesup",
+  "image": "heroku/nodejs"
+}
