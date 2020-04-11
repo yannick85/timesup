@@ -5,7 +5,7 @@
   "main": "back/server.js",
   "scripts": {
     "start": "nodemon ./back/server.js",
-    "build": "cd front && npm i && vue-cli-service build"
+    "build": "cd front && npm i && npx vue-cli-service build"
   },
   "author": "",
   "license": "ISC",
