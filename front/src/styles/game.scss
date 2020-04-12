@@ -23,18 +23,31 @@
   }
 
   .gameTeams {
+    margin-bottom: 1rem;
     .joinTeam {
       float: right;
       cursor: pointer;
     }
+    .teamScore {
+      float: right;
+      padding: 0 rem_calc(6);
+      border: rem_calc(1) solid $border-color;
+    }
+    .teamPlayer {
+      display: inline-block;
+      font-size: 0.75rem;
+      margin: 0 0.5rem;
+    }
+    .teamPlayerDrafted {
+      border-bottom: rem_calc(1) solid black;
+    }
+  }
+  .lobby {
     .teamName {
       font-size: rem_calc(20);
     }
     .teamPlayer {
-      display: inline-block;
-    }
-    .teamPlayerDrafted {
-      border-bottom: rem_calc(1) solid black;
+      font-size: 1rem;
     }
   }
   .team-red {

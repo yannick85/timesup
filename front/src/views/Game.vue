@@ -9,8 +9,15 @@
           <h1 class="gameName">{{ game.name }}</h1>
           <div class="gameState">{{ gameStateLbl }}</div>
         </div>
-        <div class="gameTeams" v-if="game.state != 'LOBBY'">
-
+        <div class="gameTeams grid-x grid-margin-x" v-if="game.state != 'LOBBY'">
+          <div v-for="team in game.teams" 
+          :index="team.id"
+          :key="team.id"
+          :class="`${ 'cell small-6 team team-'+team.id }`">
+            <div class="teamName" @click="chooseTeam(team.id)"><div class="teamScore">{{ team.score }}</div>Equipe {{ team.name }}</div>
+            <div class="teamPlayer" v-for="teamPlayer in team.players" 
+              :key="teamPlayer.id">{{teamPlayer.pseudo}}</div>
+          </div>
         </div>
         <Lobby v-if="game.state == 'LOBBY'" :game="game" @sendData="sendData"></Lobby>
         <Prep v-if="game.state == 'PREP'" :game="game" @sendData="sendData"></Prep>
