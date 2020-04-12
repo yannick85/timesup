@@ -1,0 +1,38 @@
+.gameContainer {
+  .syncButton {
+    float: right;
+    font-size: 1rem;
+    margin-top: rem_calc(3);
+  }
+
+  .gameHeader {
+    margin-bottom: 1rem;
+    .gameName {
+
+    }
+    .gameState {
+
+    }
+  }
+
+  .gameTeams {
+    .joinTeam {
+      float: right;
+    }
+    .teamName {
+
+    }
+
+    .team-red {
+      .teamName, .joinTeam {
+        color: red;
+      }
+    }
+    .team-blue {
+      .teamName, .joinTeam {
+        color: blue;
+      }
+    }
+  }
+
+}

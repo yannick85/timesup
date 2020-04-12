@@ -48,6 +48,16 @@ h1, h2 {
   position: fixed;
   top: 0;
   width: 100%;
+  padding: 0.5rem;
+
+  #nav {
+    a {
+      font-size: rem_calc(22);
+      color: $text-color;
+      margin: rem_calc(8) rem_calc(10);
+      display: inline-block;
+    }
+  }
 }
 
 .formElement {

@@ -16,8 +16,8 @@ module.exports = function (httpServer) {
     */
     socket.on('createGame', function (data) {
       data.numberOfWords = parseInt(data.numberOfWords)
-      if (data.name && data.name.length > 4 &&
-          data.creatorPseudo && data.creatorPseudo.length > 4 
+      if (data.name && data.name.length > 2 &&
+          data.creatorPseudo && data.creatorPseudo.length > 2
           && data.numberOfWords > 2) {
         data.gameUuid = uuidv4()
         allGames[data.gameUuid] = gameObject(data, socket)

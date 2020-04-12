@@ -229,6 +229,7 @@ module.exports = function (gameDataIn, creatorSocket) {
             if (data.playerData.action == 'chooseTeam') {
               if (this.getTeamById(data.playerData.actionData) != null) {
                 this.playerTeamChosen[player.id] = data.playerData.actionData
+                this.playersReady[player.id] = false
                 this.syncAll()
               }
             } else if (data.playerData.action == 'playerReady') {

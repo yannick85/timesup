@@ -40,8 +40,8 @@ export default {
   },
   methods: {
     createGame () {
-      if (this.game.name && this.game.name.length > 4 &&
-          this.game.creatorPseudo && this.game.creatorPseudo.length > 4
+      if (this.game.name && this.game.name.length > 2 &&
+          this.game.creatorPseudo && this.game.creatorPseudo.length > 2
           && this.game.numberOfWords > 2) {
         this.$socket.emit('createGame', this.game)
       } else {
