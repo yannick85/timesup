@@ -63,9 +63,10 @@ module.exports = function (gameDataIn, creatorSocket) {
       }
     },
     // Resynchroniser le joueur avec l'état du jeu
-    syncGameForPlayer: function (pUuid) {
+    syncGameForPlayer: function (pUuid, socket) {
       let player = this.getPlayerWithUuid(pUuid)
       if (player) {
+        player.socket = socket
         player.socket.emit('syncGame', this.getActualGame(player))
       }
     },

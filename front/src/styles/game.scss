@@ -36,22 +36,21 @@
     .teamPlayerDrafted {
       border-bottom: rem_calc(1) solid black;
     }
-
-    .team-red {
-      .teamName, .joinTeam {
-        color: red;
-      }
-      .teamPlayerDrafted {
-        border-color: red;
-      }
+  }
+  .team-red {
+    .teamName, .joinTeam {
+      color: red;
     }
-    .team-blue {
-      .teamName, .joinTeam {
-        color: blue;
-      }
-      .teamPlayerDrafted {
-        border-color: blue;
-      }
+    .teamPlayerDrafted {
+      border-color: red;
+    }
+  }
+  .team-blue {
+    .teamName, .joinTeam {
+      color: blue;
+    }
+    .teamPlayerDrafted {
+      border-color: blue;
     }
   }
 
@@ -67,8 +66,76 @@
     }
   }
 
-    .error {
-      color: red;
-      text-align: center;
+  .error {
+    color: red;
+    text-align: center;
+  }
+
+  .turnTitle {
+    float: right;
+    font-size: rem_calc(16);
+  }
+
+  .turnTeamAndPlayer {
+    font-size: rem_calc(16);
+    .teamName {
+      font-weight: bold;
     }
+  }
+
+  .wordContainer {
+    margin: 0.75rem 0;
+    text-align: center;
+    .wordIntro {
+
+    }
+    .wordBlock {
+      margin: 0.5rem;
+      border: solid rem_calc(1) black;
+      min-height: 6rem;
+      position: relative;
+      .showWord {
+        height: 100%;
+        display: block;
+        margin-top: 2rem;
+        font-style: italic;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+      .hideWord {
+        position: absolute;
+        top: 0.25rem;
+        left: 0;
+        right: 0;
+        font-style: italic;
+        font-size: 0.75rem;
+        cursor: pointer;
+      }
+      .wordAsked {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .responseBlock {
+    display: flex;
+    margin: 0.75rem 0;
+    & > div {
+      cursor: pointer;
+      display: inline-block;
+      width: calc(50% - 1rem);
+      margin: 0 1rem;
+      border: rem_calc(1) solid $border-color;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+    & > div.responseActive {
+      border-color: $theme-color;
+      font-weight: bold;
+      color: $theme-color;
+    }
+  }
 }

@@ -49,7 +49,7 @@ module.exports = function (httpServer) {
    socket.on('syncGame', function (data) {
     for (let i in allGames) {
       if (allGames[i].gameUuid == data.gameUuid) {
-        allGames[i].syncGameForPlayer(data.playerUuid)
+        allGames[i].syncGameForPlayer(data.playerUuid, socket)
       }
     }
   })
