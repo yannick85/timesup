@@ -31,7 +31,7 @@ export default {
       game: {
         name: null,
         password: null,
-        numberOfWords: 20,
+        numberOfWords: 16,
         creatorPseudo: null
       }
     }

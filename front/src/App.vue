@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
+      <div id="appName">Times Up</div>
       <div id="nav">
         <router-link to="/"><faicon icon="home" /></router-link>
         <router-link to="/about"><faicon icon="info" /></router-link>

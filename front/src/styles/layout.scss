@@ -50,6 +50,15 @@ h1, h2 {
   width: 100%;
   padding: 0.5rem;
 
+  #appName {
+    float: right;
+    color: $light-color;
+    font-size: rem_calc(26);
+    font-weight: bold;
+    margin-top: 4px;
+    margin-right: 10px;
+  }
+
   #nav {
     a {
       font-size: rem_calc(22);

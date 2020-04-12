@@ -8,7 +8,7 @@
         <h4 class="teamName" @click="chooseTeam(team.id)"><div class="joinTeam"><faicon icon="sign-in-alt" /></div>Equipe {{ team.name }}</h4>
         <div v-for="(teamChosenId, index) in game.stateData.playerTeamChosen" 
           :key="index">
-          <div v-if="teamChosenId == team.id">{{ game.players[index].pseudo }} <span v-if="game.stateData.playersReady[index]" class="readyIndicator"> <faicon icon="check" /></span></div>
+          <div v-if="teamChosenId == team.id" class="teamPlayer teamPlayerDrafted">{{ game.players[index].pseudo }} <span v-if="game.stateData.playersReady[index]" class="readyIndicator"> <faicon icon="check" /></span></div>
         </div>
       </div>
     </div>

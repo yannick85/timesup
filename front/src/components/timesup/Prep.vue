@@ -1,7 +1,7 @@
 <template>
   <div class="prep">
     <div>
-      <h4>Saisie des mots</h4>
+      <p>Entre 3 et 40 lettres, sans espace</p>
       <div v-for="(word, index) in words" 
         :key="index">
         <div class="formElement">
@@ -9,6 +9,7 @@
           <input type="text" v-model="words[index]" />
         </div>
       </div>
+      <p class="error" v-if="error">{{error}}</p>
     </div>
     <div class="button" @click="sendWords()" v-if="!game.stateData.playersReady[$store.getters['playerId']]"
       >Je valide et je suis prêt</div>
@@ -26,14 +27,25 @@ export default {
   },
   data: function () {
     return { 
-      words: []
+      words: [],
+      error: null
     }
   },
   mounted: function () {
   },
   methods: {
     sendWords: function () {
-      this.$emit('sendData', 'setWords', this.words)
+      let allWordOk = true
+      this.error = ''
+      for (let i in this.words) {
+        if (!this.words[i].match('^[a-zA-Zàâçéèêëîïôûùüÿñæœ]{3,40}$')) {
+          allWordOk = false
+          this.error += 'Mot non conforme : ' + this.words[i] + ' -> entre 3 et 40 lettres, sans espace.  \r\n'
+        }
+      }
+      if (allWordOk) {
+        this.$emit('sendData', 'setWords', this.words)
+      }
     },
     cancelReady: function () {
       this.$emit('sendData', 'cancelReady')

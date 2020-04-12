@@ -50,7 +50,7 @@ export default {
       this.$socket.emit('sendGameList')
     },
     askToJoinGame: function () {
-      if (this.gameChosen && this.playerPseudo && this.playerPseudo.length > 4) {
+      if (this.gameChosen && this.playerPseudo && this.playerPseudo.length > 2) {
         this.$socket.emit('joinGame', {
           gameUuid: this.gameChosen.gameUuid,
           pseudo: this.playerPseudo,

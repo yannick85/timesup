@@ -3,36 +3,72 @@
     float: right;
     font-size: 1rem;
     margin-top: rem_calc(3);
+    cursor: pointer;
   }
 
   .gameHeader {
-    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: rem_calc(1) solid $border-color;
     .gameName {
-
+      text-align: center;
+      font-size: rem_calc(22);
+      font-weight: bold;
     }
     .gameState {
-
+      text-align: center;
+      font-size: rem_calc(14);
+      font-weight: bold;
     }
   }
 
   .gameTeams {
     .joinTeam {
       float: right;
+      cursor: pointer;
     }
     .teamName {
-
+      font-size: rem_calc(20);
+    }
+    .teamPlayer {
+      display: inline-block;
+    }
+    .teamPlayerDrafted {
+      border-bottom: rem_calc(1) solid black;
     }
 
     .team-red {
       .teamName, .joinTeam {
         color: red;
       }
+      .teamPlayerDrafted {
+        border-color: red;
+      }
     }
     .team-blue {
       .teamName, .joinTeam {
         color: blue;
       }
+      .teamPlayerDrafted {
+        border-color: blue;
+      }
     }
   }
 
+  .waitingList {
+    text-align: center;
+    margin: 0.75rem 0;
+    .waitingListTitle {
+      font-size: rem_calc(12);
+    }
+    .waitingListPlayers {
+      font-style: italic;
+      font-size: rem_calc(14);
+    }
+  }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
 }
