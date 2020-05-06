@@ -1,0 +1,154 @@
+.gameContainer {
+  .syncButton {
+    float: right;
+    font-size: 1rem;
+    margin-top: rem_calc(3);
+    cursor: pointer;
+  }
+
+  .gameHeader {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: rem_calc(1) solid $border-color;
+    .gameName {
+      text-align: center;
+      font-size: rem_calc(22);
+      font-weight: bold;
+    }
+    .gameState {
+      text-align: center;
+      font-size: rem_calc(14);
+      font-weight: bold;
+    }
+  }
+
+  .gameTeams {
+    margin-bottom: 1rem;
+    .joinTeam {
+      float: right;
+      cursor: pointer;
+    }
+    .teamScore {
+      float: right;
+      padding: 0 rem_calc(6);
+      border: rem_calc(1) solid $border-color;
+    }
+    .teamPlayer {
+      display: inline-block;
+      font-size: 0.75rem;
+      margin: 0 0.5rem;
+    }
+    .teamPlayerDrafted {
+      border-bottom: rem_calc(1) solid black;
+    }
+  }
+  .lobby {
+    .teamName {
+      font-size: rem_calc(20);
+    }
+    .teamPlayer {
+      font-size: 1rem;
+    }
+  }
+  .team-red {
+    .teamName, .joinTeam {
+      color: red;
+    }
+    .teamPlayerDrafted {
+      border-color: red;
+    }
+  }
+  .team-blue {
+    .teamName, .joinTeam {
+      color: blue;
+    }
+    .teamPlayerDrafted {
+      border-color: blue;
+    }
+  }
+
+  .waitingList {
+    text-align: center;
+    margin: 0.75rem 0;
+    .waitingListTitle {
+      font-size: rem_calc(12);
+    }
+    .waitingListPlayers {
+      font-style: italic;
+      font-size: rem_calc(14);
+    }
+  }
+
+  .error {
+    color: red;
+    text-align: center;
+  }
+
+  .turnTitle {
+    float: right;
+    font-size: rem_calc(16);
+  }
+
+  .turnTeamAndPlayer {
+    font-size: rem_calc(16);
+    .teamName {
+      font-weight: bold;
+    }
+  }
+
+  .wordContainer {
+    margin: 0.75rem 0;
+    text-align: center;
+    .wordIntro {
+
+    }
+    .wordBlock {
+      margin: 0.5rem;
+      border: solid rem_calc(1) black;
+      min-height: 6rem;
+      position: relative;
+      .showWord {
+        height: 100%;
+        display: block;
+        margin-top: 2rem;
+        font-style: italic;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+      .hideWord {
+        position: absolute;
+        top: 0.25rem;
+        left: 0;
+        right: 0;
+        font-style: italic;
+        font-size: 0.75rem;
+        cursor: pointer;
+      }
+      .wordAsked {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .responseBlock {
+    display: flex;
+    margin: 0.75rem 0;
+    & > div {
+      cursor: pointer;
+      display: inline-block;
+      width: calc(50% - 1rem);
+      margin: 0 1rem;
+      border: rem_calc(1) solid $border-color;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+    & > div.responseActive {
+      border-color: $theme-color;
+      font-weight: bold;
+      color: $theme-color;
+    }
+  }
+}

@@ -1,10 +1,13 @@
+node_modules
+
 front/.DS_Store
 front/node_modules
 front/dist
+back/.DS_Store
+back/node_modules
 
 # local env files
-front/.env.local
-front/.env.*.local
+front/.env
 
 # Log files
 front/npm-debug.log*

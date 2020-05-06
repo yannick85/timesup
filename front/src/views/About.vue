@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>Time's Up</h1>
+    <p style="text-align:center;">Yannick Betou - 2020</p>
   </div>
 </template>

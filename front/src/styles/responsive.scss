@@ -1,0 +1,26 @@
+// Specific rules for responsive design
+// ---------
+
+@include breakpoint(small) {
+  html#socaRoot {
+      font-size: 4.2666667vw;//référence de maquette mobile 375px
+  }
+}
+
+@include breakpoint(medium) {
+  html#root {
+      font-size: 2vw;//meme rapport de taille de police qu'en desktop 1440px(taille basique global width)
+  }
+}
+
+@include breakpoint(large) {
+  html#root {
+      font-size: 1.11vw;//meme rapport de taille de police qu'en desktop 1440px(taille basique global width)
+  }
+}
+
+@include breakpoint(xxlarge) {
+  html#root {
+      font-size: 16px;
+  }
+}
